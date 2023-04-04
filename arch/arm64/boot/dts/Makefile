@@ -1,48 +1,12 @@
 # SPDX-License-Identifier: GPL-2.0
-dts-dirs += actions
-dts-dirs += al
-dts-dirs += allwinner
-dts-dirs += altera
-dts-dirs += amd
-dts-dirs += amlogic
-dts-dirs += apm
-dts-dirs += arm
-dts-dirs += broadcom
-dts-dirs += cavium
-dts-dirs += exynos
-dts-dirs += freescale
-dts-dirs += hisilicon
-dts-dirs += marvell
-dts-dirs += mediatek
-dts-dirs += nvidia
-dts-dirs += qcom
-dts-dirs += realtek
-dts-dirs += renesas
-dts-dirs += rockchip
-dts-dirs += socionext
-dts-dirs += sprd
-dts-dirs += xilinx
-dts-dirs += lg
-dts-dirs += zte
-
-subdir-y	:= $(dts-dirs)
-
-dtstree		:= $(srctree)/$(src)
-
-dtb-$(CONFIG_OF_ALL_DTBS) := $(patsubst $(dtstree)/%.dts,%.dtb, $(foreach d,$(dts-dirs), $(wildcard $(dtstree)/$(d)/*.dts)))
-
-always		:= $(dtb-y) $(dtbo-y)
+dtb-$(CONFIG_DTS_9810_CROWN) += exynos/exynos9810-crownlte_eur_open_26.dtb
+dtb-$(CONFIG_DTS_9810_STAR2) += exynos/exynos9810-star2lte_eur_open_26.dtb
+dtb-$(CONFIG_DTS_9810_STAR) += exynos/exynos9810-starlte_eur_open_26.dtb
 
 targets += dtbs
-
-DTB_NAMES := $(subst $\",,$(CONFIG_BUILD_ARM64_APPENDED_DTB_IMAGE_NAMES))
-ifneq ($(DTB_NAMES),)
-DTB_LIST := $(addsuffix .dtb,$(DTB_NAMES))
-else
-DTB_LIST := $(dtb-y) $(dtbo-y)
-endif
-targets += $(DTB_LIST)
+DTB_LIST  := $(dtb-y) $(dtbo-y)
+always    := $(DTB_LIST)
 
 dtbs: $(addprefix $(obj)/, $(DTB_LIST))
 
-clean-files := dts/*.dtb *.dtb*
+clean-files := *.dtb*
