@@ -23,6 +23,10 @@ obj-$(CONFIG_PCIE_MEDIATEK) += pcie-mediatek.o
 obj-$(CONFIG_PCIE_TANGO_SMP8759) += pcie-tango.o
 obj-$(CONFIG_VMD) += vmd.o
 
+# EXYNOS PCIE
+obj-$(CONFIG_PCI_EXYNOS) += pci-exynos.o
+obj-$(CONFIG_SOC_EXYNOS9810) += pci-exynos9810_cal.o
+
 # The following drivers are for devices that use the generic ACPI
 # pci_root.c driver but don't support standard ECAM config access.
 # They contain MCFG quirks to replace the generic ECAM accessors with
