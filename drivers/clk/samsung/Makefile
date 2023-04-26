@@ -16,6 +16,7 @@ ifeq ($(CONFIG_COMPOSITE_CLK_SAMSUNG), y)
 	obj-$(CONFIG_SOC_EXYNOS9610)	+= clk-exynos9610.o
 	obj-$(CONFIG_SOC_EXYNOS9630)	+= clk-exynos9630.o
 	obj-$(CONFIG_SOC_EXYNOS3830)	+= clk-exynos3830.o
+	obj-$(CONFIG_SOC_EXYNOS9810)	+= clk-exynos9810.o
 else
 	obj-$(CONFIG_COMMON_CLK)	+= clk.o clk-pll.o clk-cpu.o
 	obj-$(CONFIG_EXYNOS_ARM64_COMMON_CLK)	+= clk-exynos5433.o
