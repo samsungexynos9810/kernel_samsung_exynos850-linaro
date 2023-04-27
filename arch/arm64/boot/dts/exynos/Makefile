@@ -24,6 +24,10 @@ dtb-$(CONFIG_SOC_EXYNOS3830) += exynos3830.dtb \
 
 dtb-$(CONFIG_SOC_EXYNOS3830) += exynos3830-cramfs-smdk3830.dtb
 
+dtb-$(CONFIG_SOC_EXYNOS9810) += exynos9810-crownlte_eur_open_26.dtb \
+				exynos9810-star2lte_eur_open_26.dtb \
+				exynos9810-starlte_eur_open_26.dtb
+
 always		:= $(dtb-y) $(dtbo-y)
 subdir-y	:= $(dts-dirs)
 clean-files	:= *.dtb *.dtbo
