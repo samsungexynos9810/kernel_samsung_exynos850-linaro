@@ -14,7 +14,7 @@
 #include "../dsim.h"
 
 
-extern lt8912b_init(void);
+extern int lt8912b_init(void);
 extern int lt8912b_resume(void);
 extern int lt8912b_suspend(void);
 
