@@ -21,6 +21,53 @@
 			  <0x9 0x00000000 0x80000000>;
 	};
 
+	ion-hpa-heap {
+		#address-cells = <0x2>;
+		#size-cells = <0x1>;
+		ranges;
+		ion,hpa_limit = <0xa 0x0>;
+		ion,hpa_alloc_exception = <0x0 0xf0000000 0x10000000>;
+
+		ion_video_fw {
+			compatible = "exynos9820-ion";
+			ion,heapname = "vfw_heap";
+			ion,secure;
+			ion,protection_id = <0x2>;
+			ion,alignment = <0x10000>;
+		};
+
+		ion_video_nfw {
+			compatible = "exynos9820-ion";
+			ion,heapname = "vnfw_heap";
+			ion,protection_id = <0x7>;
+			ion,alignment = <0x10000>;
+		};
+
+		ion_video_frame {
+			compatible = "exynos9820-ion";
+			ion,heapname = "vframe_heap";
+			ion,secure;
+			ion,protection_id = <0x5>;
+			ion,alignment = <0x10000>;
+		};
+
+		ion_video_scaler {
+			compatible = "exynos9820-ion";
+			ion,heapname = "vscaler_heap";
+			ion,secure;
+			ion,protection_id = <0x6>;
+			ion,alignment = <0x10000>;
+		};
+
+		ion_gpu_buffer {
+			compatible = "exynos9820-ion";
+			ion,heapname = "gpu_buffer";
+			ion,secure;
+			ion,protection_id = <0x9>;
+			ion,alignment = <0x10000>;
+		};
+	};
+
 	reserved-memory {
 		#address-cells = <0x2>;
 		#size-cells = <0x1>;
@@ -68,75 +115,79 @@
 			reg = <0x0 0xc0000000 0x80000>;
 		};
 
-		video_stream {
-			compatible = "exynos8890-ion,vstream";
+		ion-video_stream {
+			compatible = "exynos9820-ion";
 			ion,secure;
 			ion,reusable;
 			size = <0x6c00000>;
 			alloc-ranges = <0x0 0x40000000 0xb0000000>;
 			alignment = <0x0 0x400000>;
-			id = <0x3>;
+			ion,protection_id = <0x3>;
 			compat-id = <0x19 0x1f>;
+			ion,heapname = "vstream_heap";
+			ion,alignment = <0x10000>;
 		};
 
 		crypto {
-			compatible = "exynos8890-ion,crypto";
+			compatible = "exynos9820-ion";
 			ion,reusable;
 			size = <0x1800000>;
 			alignment = <0x0 0x400000>;
-			id = <0x1>;
+			ion,protection_id = <0x1>;
+			ion,heapname = "crypto_heap";
+			ion,alignment = <0x10000>;
 		};
 
 		secure_camera {
-			compatible = "exynos8890-ion,secure_camera";
-			ion,untouchable;
+			compatible = "exynos9820-ion";
+			ion,secure;
 			reg = <0x0 0xe1900000 0x1e00000>;
-			id = <0xb>;
+			ion,protection_id = <0xb>;
+			ion,heapname = "secure_camera_heap";
+			ion,alignment = <0x10000>;
 		};
 
-		exynos_ss {
-			compatible = "exynos,exynos_ss";
-			reg = <0x0 0xfda00000 0x1c08000>;
+		debug_snapshot {
 			#address-cells = <0x2>;
 			#size-cells = <0x1>;
 
 			header {
-				compatible = "exynos_ss,header";
+				compatible = "debug-snapshot,header";
 				reg = <0x0 0xfda00000 0x10000>;
 			};
 
 			log_kernel {
-				compatible = "exynos_ss,log_kernel";
+				compatible = "debug-snapshot,log_kernel";
 				reg = <0x0 0xfda10000 0x200000>;
 			};
 
 			log_platform {
-				compatible = "exynos_ss,log_platform";
+				compatible = "debug-snapshot,log_platform";
 				reg = <0x0 0xfdc10000 0x400000>;
 			};
 
 			log_sfr {
-				compatible = "exynos_ss,log_sfr";
+				compatible = "debug-snapshot,log_sfr";
 				reg = <0x0 0xfe010000 0x200000>;
 			};
 
 			log_cachedump {
-				compatible = "exynos_ss,log_cachedump";
+				compatible = "debug-snapshot,log_cachedump";
 				reg = <0x0 0xfe210000 0xa00000>;
 			};
 
 			log_etm {
-				compatible = "exynos_ss,log_etm";
+				compatible = "debug-snapshot,log_etm";
 				reg = <0x0 0xfec10000 0x100000>;
 			};
 
 			log_pstore {
-				compatible = "exynos_ss,log_pstore";
+				compatible = "debug-snapshot,log_pstore";
 				reg = <0x0 0xfed10000 0x8000>;
 			};
 
 			log_kevents {
-				compatible = "exynos_ss,log_kevents";
+				compatible = "debug-snapshot,log_kevents";
 				reg = <0x0 0xfed18000 0x800000>;
 			};
 		};
@@ -149,20 +200,22 @@
 		};
 
 		camera {
-			compatible = "exynos8890-ion,camera";
+			compatible = "exynos9820-ion";
 			ion,recyclable;
 			size = <0x1b800000>;
 			alloc-ranges = <0x0 0x40000000 0xc0000000>;
 			alignment = <0x0 0x400000>;
-			id = <0xa>;
+			ion,protection_id = <0xa>;
+			ion,heapname = "camera_heap";
 		};
 
 		camera_contig {
-			compatible = "exynos8890-ion,camera_contig";
+			compatible = "exynos9820-ion";
 			size = <0x46a000>;
 			alloc-ranges = <0x0 0x40000000 0xc0000000>;
 			alignment = <0x0 0x400000>;
-			id = <0xc>;
+			ion,protection_id = <0xc>;
+			ion,heapname = "camera_contig_heap";
 		};
 
 		rkp_region@0xAF800000 {
